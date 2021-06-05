@@ -3,13 +3,21 @@ import requests
 import sys
 import time
 os.system('clear')
-v = 0.2
+v = 0.3
 r = ''
 cwd = os.getcwd()
 cwdo = cwd
 def Convert(string):
     li = list(string.split(" "))
     return li
+def check_log():
+    try:
+        f = open(cwd + '/aidanos/log.txt', 'r')
+        print('Found log from Aidan OS')
+        print('Reading file')
+        print(f.read())
+    except:
+        nothing = 'do nothing'
 try:
     f = open(cwd + '/aidanos/installed.txt', 'r')
     f.close()
@@ -18,11 +26,13 @@ try:
     usernamee = f.read()
     f.close()
     print('Your from Aidan OS!')
+    check_log()
 except:
     print('You are not from Aidan OS but thats fine you can still use this!')
+    u = False
 print('''Welcome to Aidan OS console
 What do you want to do? well run help to find out!
-console version 0.2''')
+console version 0.3''')
 while True:
     cwd = os.getcwd()
     if u == True:
@@ -40,6 +50,7 @@ cd: moves directories
 debug: this command is in beta
 rm: it removes a file
 update: updates the console if it needs to
+checklog: this check the Aidan OS log NOTE: this only works if you have Aidan OS installed in that directory!
 exit: to exit the console
 end of help''')
     elif a == 'cd':
@@ -78,7 +89,7 @@ end of help''')
     elif a == 'update':
         r = requests.get(url = 'https://raw.githubusercontent.com/aidaner/Aidan-OS-Console/version/version.html')
         r = r.json()
-        if int(r) < v:
+        if int(r) > v:
             print(f'Your on the latest version of Aidan OS console! Version {str(v)}')
         else:
             print('Your not on the latest version of Aidan OS console')
@@ -95,7 +106,16 @@ end of help''')
                 os.system('rm console.py')
                 os.system('wget https://raw.githubusercontent.com/aidaner/Aidan-OS-Console/main/console.py')
                 print('Done do exit then run it again to restart the console!')
-    
+    elif a == 'checklog':
+        if u == True:
+            try:
+                f = open(cwd + '/aidanos/log.txt', 'r')
+                print('Log:')
+                print(f.read())
+            except:
+                print('No log file found!')
+        else:
+            print('You do not have Aidan OS installed in the directory for this to work!')
     
     else:
         print('Thats not a command! Please use help for a list of commands!')
