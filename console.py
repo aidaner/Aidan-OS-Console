@@ -89,7 +89,7 @@ end of help''')
     elif a == 'update':
         r = requests.get(url = 'https://raw.githubusercontent.com/aidaner/Aidan-OS-Console/version/version.html')
         r = r.json()
-        if int(r) > v:
+        if int(r) < v:
             print(f'Your on the latest version of Aidan OS console! Version {str(v)}')
         else:
             print('Your not on the latest version of Aidan OS console')
